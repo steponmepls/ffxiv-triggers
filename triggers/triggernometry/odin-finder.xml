@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="0c418d15-bc63-4b20-b2eb-95cf610f4f7d" Name="Odin finder" Enabled="true">
+    <Folders>
+      <Folder ZoneFilterEnabled="True" Id="121de1c7-042f-4f67-a588-c8527dc1c3df" ZoneFilterRegularExpression="(Central|East|South|North)\ Shroud" Name="Spawn" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="Callout" Id="f0bd1cdb-9c5d-4a2e-b68f-1bba15f06666" RegularExpression="03:(?&lt;eid&gt;[0-9A-Z]+):Added new combatant.+ Job: N\/A Level: (5\d|60) Max HP: \d{7,8}.+\((?&lt;uid&gt;\d+)\)\.$" Description="RAW LINES:&#xD;&#xA;[21:49:04.605] 03:4001D9D3:Added new combatant Sonyuah Eppo.  Job: N/A Level: 54 Max HP: 14590368 Max MP: 10000 Pos: (-366.5278,-149.4218,62.40668) (88700000000882).&#xD;&#xA;[19:53:46.817] 03:4001C2D6:Added new combatant Spiritual Vodderz.  Job: N/A Level: 55 Max HP: 15637536 Max MP: 10000 Pos: (257.55,10.99622,-6.141644) (88700000000882).&#xD;&#xA;&#xD;&#xA;Odin personal ID appears to possibly be 88700000000882">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" TextAuraEffect="Bold" TextAuraFontSize="15.75" TextAuraForeground="White" TextAuraBackground="Black" TextAuraName="odinfinder" TextAuraExpression="X: ${numeric:round(${_ffxiventity[${eid}].x}*0.02+21.5, 1)} Y: ${numeric:round(${_ffxiventity[${eid}].y}*0.02+21.5, 1)}" TextAuraXIniExpression="25" TextAuraYIniExpression="25" TextAuraWIniExpression="250" TextAuraHIniExpression="50" TextAuraOIniExpression="75" TextAuraFontName="Microsoft Sans Serif" ActionType="TextAura">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" LogLevel="-1" VariableOp="SetString" VariableName="odinid" VariableExpression="${eid}" TextAuraFontSize="8.25" TextAuraFontName="Microsoft Sans Serif" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="3" LogLevel="-1" UseTTSTextExpression="Odin" TextAuraFontSize="8.25" TextAuraFontName="Microsoft Sans Serif" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${uid}" ExpressionTypeL="String" ExpressionR="88700000000882" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Trigger>
+        </Triggers>
+      </Folder>
+    </Folders>
+    <Triggers>
+      <Trigger Enabled="true" Name="Defeat/Zone change" Id="8a3b2926-129e-4392-89a4-5bc818821fed" RegularExpression="00:.+defeats Odin.$|01:Changed Zone to">
+        <Actions>
+          <Action OrderNumber="1" LogLevel="-1" TextAuraOp="DeactivateAura" TextAuraFontSize="8.25" TextAuraName="odinfinder" TextAuraFontName="Microsoft Sans Serif" ActionType="TextAura">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="2" LogLevel="-1" VariableName="odinid" TextAuraFontSize="8.25" TextAuraFontName="Microsoft Sans Serif" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${evar:odinid}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+        </Condition>
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="Despawn" Id="27c3698a-3582-4905-856f-3707ec1bd3ba" RegularExpression="04:([0-9A-Z]+):Removing combatant">
+        <Actions>
+          <Action OrderNumber="1" LogLevel="-1" TextAuraOp="DeactivateAura" TextAuraFontSize="8.25" TextAuraName="odinfinder" TextAuraFontName="Microsoft Sans Serif" ActionType="TextAura">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="2" LogLevel="-1" VariableName="odinid" TextAuraFontSize="8.25" TextAuraFontName="Microsoft Sans Serif" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="${var:odinid}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+        </Condition>
+        <Conditions />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>

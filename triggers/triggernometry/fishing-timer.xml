@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder FFXIVJobFilterEnabled="True" FFXIVJobFilter="131072" Id="81e7b26f-a4a2-42b9-bd21-088656178918" Name="FSH Timer" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Name="1. Start cast" Id="f0d3217c-c896-431e-b7da-4e5bfa4754ca" RegularExpression="^\[.+\] 00.+You (re)?cast your line">
+        <Actions>
+          <Action OrderNumber="1" LogLevel="-1" TextAuraEffect="Bold" TextAuraFontSize="21.75" TextAuraForeground="White" TextAuraBackground="Black" TextAuraName="_fishcast" TextAuraExpression="${_since}" TextAuraXIniExpression="${_screenwidth}/2-(64/2)" TextAuraYIniExpression="${_screenheight}/1.45-(64/2)" TextAuraWIniExpression="64" TextAuraHIniExpression="64" TextAuraOIniExpression="80" TextAuraFontName="Verdana" ActionType="TextAura">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="2. Stop cast" Id="73dd5650-f2b8-46b2-9b91-0a3d35660f21" RegularExpression="^\[.+\] 00.+(Something bites|Nothing bites|The fish gets away|You reel in your line|You lose your)">
+        <Actions>
+          <Action OrderNumber="1" LogLevel="-1" VariableOp="SetNumeric" VariableName="_fishcast" VariableExpression="${_textaura[_fishcast].text}" TextAuraFontSize="8.25" TextAuraFontName="Microsoft Sans Serif" ActionType="Variable" Asynchronous="False">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" LogLevel="-1" TextAuraEffect="Bold" TextAuraFontSize="21.75" TextAuraBackground="Lime" TextAuraName="_fishcast" TextAuraExpression="${var:_fishcast}" TextAuraXIniExpression="${_screenwidth}/2-(64/2)" TextAuraYIniExpression="${_screenheight}/1.45-(64/2)" TextAuraWIniExpression="64" TextAuraHIniExpression="64" TextAuraOIniExpression="80" TextAuraOTickExpression="80-(${_sincems}/25)" TextAuraTTLTickExpression="4-${_since}" TextAuraFontName="Verdana" ActionType="TextAura">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="Something bites" ExpressionTypeR="String" ConditionType="RegexMatch" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="3" LogLevel="-1" TextAuraOp="DeactivateAura" TextAuraFontSize="8.25" TextAuraName="_fishcast" TextAuraFontName="Microsoft Sans Serif" ActionType="TextAura">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="Something bites" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
