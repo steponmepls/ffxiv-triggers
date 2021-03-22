@@ -25,7 +25,7 @@
       </Folder>
     </Folders>
     <Triggers>
-      <Trigger Enabled="true" Name="Defeat/Zone change" Id="8a3b2926-129e-4392-89a4-5bc818821fed" RegularExpression="00:.+defeats Odin.$|01:Changed Zone to">
+      <Trigger Enabled="true" Name="Defeat/Zone change" Id="8a3b2926-129e-4392-89a4-5bc818821fed" RegularExpression="00:.+defeats Odin.$|01:Changed Zone to" DebugLevel="None">
         <Actions>
           <Action OrderNumber="1" LogLevel="-1" TextAuraOp="DeactivateAura" TextAuraFontSize="8.25" TextAuraName="odinfinder" TextAuraFontName="Microsoft Sans Serif" ActionType="TextAura">
             <Condition Enabled="false" Grouping="Or" />
@@ -39,9 +39,8 @@
         <Condition Enabled="true" Grouping="Or">
           <ConditionSingle Enabled="true" ExpressionL="${evar:odinid}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
         </Condition>
-        <Conditions />
       </Trigger>
-      <Trigger Enabled="true" Name="Despawn" Id="27c3698a-3582-4905-856f-3707ec1bd3ba" RegularExpression="04:([0-9A-Z]+):Removing combatant">
+      <Trigger Enabled="true" Name="Despawn" Id="27c3698a-3582-4905-856f-3707ec1bd3ba" RegularExpression="04:([0-9A-Z]+):Removing combatant" DebugLevel="None">
         <Actions>
           <Action OrderNumber="1" LogLevel="-1" TextAuraOp="DeactivateAura" TextAuraFontSize="8.25" TextAuraName="odinfinder" TextAuraFontName="Microsoft Sans Serif" ActionType="TextAura">
             <Condition Enabled="false" Grouping="Or" />
@@ -55,7 +54,6 @@
         <Condition Enabled="true" Grouping="Or">
           <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="${var:odinid}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
         </Condition>
-        <Conditions />
       </Trigger>
     </Triggers>
   </ExportedFolder>
